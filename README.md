@@ -1,5 +1,7 @@
 # David Duffy | HingeZero — Associative Memory Research
 
+**New developer integration:** [HingeZero local memory + Ollama assistant quickstart](https://github.com/HingeZero/HingeZero-1B-Memory/tree/main/desktop/local-ollama-demo) — read-only search, user-confirmed saving, local-model answers with references to retrieved notes, and reproducible mock-service tests. Developer preview, not a production-certified release.
+
 **Founder & CTO, HingeZero Ltd · Scotland, UK**
 
 **Classical Hopfield & Modern Hopfield memory research · Deterministic retrieval · Witness-verified memory · Offline AI**
