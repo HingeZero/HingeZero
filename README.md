@@ -1,78 +1,76 @@
-# HingeZero — Project Contents
+# David Duffy | HingeZero — Associative Memory Research
 
-**Public code, reproducible benchmarks, applications and research from David Duffy / HingeZero.**
+**Founder & CTO, HingeZero Ltd · Scotland, UK**
 
-This page is the central directory for the [HingeZero GitHub account](https://github.com/HingeZero). Each link opens the actual public source or evidence. It is an index, not a claim that every experiment has been independently reproduced.
+**Classical Hopfield & Modern Hopfield memory research · Deterministic retrieval · Witness-verified memory · Offline AI**
 
-**Start here:** [HingeZero Core](https://github.com/HingeZero/HingeZero-Core) · [Python associative memory](https://github.com/HingeZero/HingeZero.py) · [Witness memory and desktop application](https://github.com/HingeZero/HingeZero-1B-Memory) · [Latest HingeZero vs Modern Hopfield benchmark](https://github.com/HingeZero/HingeZero-1B-Memory/tree/main/benchmarks/hingezero0-vs-modern-hopfield-2026-11-03)
+I'm **David Duffy**, creator of **HingeZero**, an associative-memory research and engineering project. My work explores how to retrieve stored information reliably under noise, how to preserve a memory's exact identity, and how to reduce unnecessary computation in memory systems.
+
+**Start here:** [Research and source directory](https://github.com/HingeZero/HingeZero-) · [HingeZero Core](https://github.com/HingeZero/HingeZero-Core) · [HingeZero vs Modern Hopfield benchmark](https://github.com/HingeZero/HingeZero-1B-Memory/tree/main/benchmarks/hingezero0-vs-modern-hopfield-2026-11-03) · [Memory desktop application](https://github.com/HingeZero/HingeZero-1B-Memory)
 
 ---
 
-## 1. Implementations
+## David Duffy's HingeZero research: Hopfield and Modern Hopfield constraints
 
-| Project | What it contains | Where to start |
+HingeZero investigates practical limitations associated with classical Hopfield networks and Modern Hopfield (MH) memory, including storage architecture, computational overhead, noisy-pattern recall, and the distinction between a **stored memory** and a **newly blended state**.
+
+### Published experimental results
+
+| Experiment | Recorded finding | Evidence |
 | --- | --- | --- |
-| **[HingeZero Core](https://github.com/HingeZero/HingeZero-Core)** | The dual-tanh operator, canonical recurrence, definitions and small tests. This is the **recurrence-level** reference, not the complete Witness retrieval architecture. | [Core explanation](https://github.com/HingeZero/HingeZero-Core/blob/main/CORE_IMPLEMENTATION.md) · [Recall test](https://github.com/HingeZero/HingeZero-Core/blob/main/test_associative_recall.py) |
-| **[HingeZero.py](https://github.com/HingeZero/HingeZero.py)** | Python memory-bank retrieval, candidate ranking and optional local refinement. | [Python source](https://github.com/HingeZero/HingeZero.py/blob/main/HingeZero.py) · [Overview](https://github.com/HingeZero/HingeZero.py/blob/main/README.md) |
-| **[HingeZero 1-Bit](https://github.com/HingeZero/HingeZero-1Bit)** | Packed-binary associative memory experiments and an interactive browser demonstration. | [C++ packed-memory source](https://github.com/HingeZero/HingeZero-1Bit/blob/main/hingezero_core.cpp) · [Recorded results](https://github.com/HingeZero/HingeZero-1Bit/blob/main/Results) · [Demo](https://github.com/HingeZero/HingeZero-1Bit/blob/main/index.html) |
-| **[HingeZero Witness / 1B Memory](https://github.com/HingeZero/HingeZero-1B-Memory)** | Witness-constrained stored-state retrieval, C++20 billion-memory research, and the separate offline memory desktop application. | [Original Witness Core](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/HingeZero_Core.py) · [Native C++20](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/HingeZero_Native_1B.cpp) |
+| **HingeZero 0-step + Witness vs full Modern Hopfield update** (3 Nov 2026) | **2.1–2.3× lower latency** for the HZ0+Witness path than the *full one-step MH state update* in the published single-thread native C++20 test, with broadly comparable intended-target accuracy | [Method, results, reproduction instructions](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/benchmarks/hingezero0-vs-modern-hopfield-2026-11-03/README.md) |
+| **Stored-state identity** (same test) | **3,600/3,600** HZ0 outputs passed the stored-state identity Witness check; this does **not** mean 3,600 correct intended targets | [Raw query-level trials](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/benchmarks/hingezero0-vs-modern-hopfield-2026-11-03/trials.csv) |
+| **Optimised control comparison** (same test) | HZ0, plain cosine lookup, and MH softmax-top-1 chose the **same stored IDs** across all 3,600 queries; optimised MH top-1 was comparably fast | [Complete comparison](https://github.com/HingeZero/HingeZero-1B-Memory/tree/main/benchmarks/hingezero0-vs-modern-hopfield-2026-11-03) |
+| **One billion stored binary patterns** (10 Oct 2026) | A streamed **full-bank** search over 1,000,000,000 packed 128-bit patterns; **8/12** intended target IDs and **12/12** Witness-valid stored selections in the recorded examples | [Research report](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/HingeZero_Cpp20_1B_Report.md) · [Protocol](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/SEALED_BENCHMARK.md) |
+| **Packed 1-bit associative-memory experiments** | Published implementations and noise-recall experiments exploring compact storage and retrieval | [Source and recorded results](https://github.com/HingeZero/HingeZero-1Bit) |
 
-**Retrieval-mode distinction:** In the published zero-refinement Witness benchmark, **0 steps** means no dual-tanh refinement; it still performs memory scoring, selection, exact stored-pattern return and Witness identity checks. Refinement is an optional, separately measurable operation. Individual repositories may retain their historical reference defaults and experimental settings.
+**What this establishes:** In the specified exact-stored-pattern retrieval task, the HingeZero zero-step Witness design provides verifiable stored-state output without a softmax or a Modern Hopfield blended-state update. It shows an implementation-level latency advantage over the *full* MH update in this benchmark.
 
-## 2. Benchmarks and reproducible results
+**What it does not establish:** The zero-step test does not demonstrate a unique accuracy gain from the nonlinear HingeZero operator (refinement is disabled), nor prove that all Hopfield capacity constraints or spurious attractors are eliminated for every architecture or task. The benchmark and larger-scale experiments are published for external reproduction and scientific scrutiny; repository publication is not equivalent to independent verification.
 
-| Experiment | Evidence and source | What was measured |
-| --- | --- | --- |
-| **0-step HingeZero + Witness vs Modern Hopfield** (3 Nov 2026) | **[Read benchmark report](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/benchmarks/hingezero0-vs-modern-hopfield-2026-11-03/README.md)** · [All files](https://github.com/HingeZero/HingeZero-1B-Memory/tree/main/benchmarks/hingezero0-vs-modern-hopfield-2026-11-03) · [C++20 comparison](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/benchmarks/hingezero0-vs-modern-hopfield-2026-11-03/compare.cpp) · [Raw trials](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/benchmarks/hingezero0-vs-modern-hopfield-2026-11-03/trials.csv) | 3,600 queries per method, matched stored-pattern banks and noisy cues, native single-thread CPU. HZ0+Witness was about 2.1–2.3× faster than the **full** one-step MH update, with comparable target-ID accuracy. Optimised MH top-1 and cosine retrieval were comparably fast and selected the same IDs. |
-| **One billion stored 128-bit memories** (10 Oct 2026) | [Research report](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/HingeZero_Cpp20_1B_Report.md) · [Frozen protocol](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/SEALED_BENCHMARK.md) · [12 recorded cases](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/billion_results.csv) · [Reproduction script](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/run_1b.sh) | A 16 GB packed bank, all-bank scan, 8/12 correct target IDs and 12/12 Witness-valid selections in the original run; a few target examples, not a statistical accuracy estimate. |
-| **1-bit packed recall** | [1-bit repository](https://github.com/HingeZero/HingeZero-1Bit) · [Results file](https://github.com/HingeZero/HingeZero-1Bit/blob/main/Results) · [Implementation](https://github.com/HingeZero/HingeZero-1Bit/blob/main/hingezero_core.cpp) | Compact binary representation and noisy-pattern recall tests. Consult the source for each test's dimensions, trial count, search stages and refinement settings. |
-| **HingeZero Core recall tests** | [Strengths benchmark](https://github.com/HingeZero/HingeZero-Core/blob/main/benchmark_hingezero_strengths.py) · [Associative recall test](https://github.com/HingeZero/HingeZero-Core/blob/main/test_associative_recall.py) · [Unit tests](https://github.com/HingeZero/HingeZero-Core/blob/main/test_hingezero.py) | Controlled experiments with the Core's recurrence and associative matrices. Different from full-bank Witness tests. |
+## How HingeZero works
 
-**How to read the numbers:** Witness verification shows that the *selected output is a stored state*; correct-target recall measures whether it is the *intended* memory. These are separate metrics. The results above are reported local experiments; publication of runnable code does not itself imply independent verification.
+The HingeZero Core defines a hinge-at-zero nonlinear response:
 
-## 3. Download and use HingeZero Memory Desktop
+```text
+φ(h; α) = tanh(h) + α · tanh(2h)
+```
 
-The desktop memory vault is in [HingeZero-1B-Memory](https://github.com/HingeZero/HingeZero-1B-Memory), alongside — but distinct from — the billion-pattern research kit.
+Its optional iterative update is:
 
-- [Latest desktop preview / releases](https://github.com/HingeZero/HingeZero-1B-Memory/releases/latest)
-- [Desktop installation and user guide](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/desktop/README.md)
-- [Local application API and integration](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/desktop/README.md#local-api-for-existing-ai-tools)
-- [ChatGPT bridge notes](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/desktop/chatgpt-bridge/README.md)
-- [Commercial licensing information](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/desktop/COMMERCIAL-LICENSING.md)
+```text
+x(t+1) = (1 − λ)x(t) + ε · φ(Wx(t); α)
+```
 
-The published desktop builds are previews. Consult each release for platform support, checksums, permissions and limitations.
+The **Witness-constrained retrieval architecture** separately selects and verifies exact stored memory states. In the published **zero-step** comparison, nonlinear refinement is off: selection, exact stored-pattern return, and Witness verification still run. These are distinct components and should not be confused.
 
-## 4. Benchmark frameworks used for experimentation (forks)
+- [Mathematics and reference implementation](https://github.com/HingeZero/HingeZero-Core)
+- [Scalable Python memory-bank retrieval](https://github.com/HingeZero/HingeZero.py)
+- [Witness source and native billion-pattern research](https://github.com/HingeZero/HingeZero-1B-Memory)
 
-These public repositories are **forks of external benchmark projects**, not standalone evidence of a verified HingeZero score.
+## Explore the code and reproduce the tests
 
-| Repository | Upstream framework |
+| Repository | Purpose |
 | --- | --- |
-| [HingeZero / big-ann-benchmarks](https://github.com/HingeZero/big-ann-benchmarks) | [BigANN Benchmarks](https://github.com/harsha-simhadri/big-ann-benchmarks) |
-| [HingeZero / vibe](https://github.com/HingeZero/vibe) | [Vector Index Benchmark for Embeddings](https://github.com/vector-index-bench/vibe) |
-| [HingeZero / precisionMemBench](https://github.com/HingeZero/precisionMemBench) | [PrecisionMemBench](https://github.com/tenurehq/precisionMemBench) |
+| [HingeZero-Core](https://github.com/HingeZero/HingeZero-Core) | Canonical operator, recurrence, mathematical notes and tests |
+| [HingeZero.py](https://github.com/HingeZero/HingeZero.py) | Memory-bank candidate search, ranking and optional refinement |
+| [HingeZero-1Bit](https://github.com/HingeZero/HingeZero-1Bit) | Packed 1-bit memory source, recorded results and demo |
+| [HingeZero-1B-Memory](https://github.com/HingeZero/HingeZero-1B-Memory) | Witness-constrained retrieval, billion-pattern C++20 research, offline desktop memory |
+| [HingeZero project contents](https://github.com/HingeZero/HingeZero-) | Central directory to published source, comparisons and research |
 
-For benchmark submissions, methods and current leaderboard positions, use the relevant framework's official validation process rather than treating a fork or a self-reported run as a confirmed leaderboard placement.
+For the November 2026 HingeZero/MH experiment, see the [complete benchmark folder](https://github.com/HingeZero/HingeZero-1B-Memory/tree/main/benchmarks/hingezero0-vs-modern-hopfield-2026-11-03), including `compare.cpp`, `run_benchmark.py`, `trials.csv` and the documented controls. It requires Python with NumPy and a C++20 compiler.
 
-## 5. Repository directory
+## Applications and direction
 
-All public repositories currently listed on this account:
+I am exploring how deterministic, local associative memory can support **offline assistants**, long-term information retrieval, and future efficient hardware. The [HingeZero Memory Desktop](https://github.com/HingeZero/HingeZero-1B-Memory) is a published offline-first preview for saving and retrieving personal information; see its documentation for scope, limitations and licensing.
 
-1. [HingeZero-](https://github.com/HingeZero/HingeZero-) — **you are here:** contents and project navigation.
-2. [HingeZero-Core](https://github.com/HingeZero/HingeZero-Core) — mathematical reference and core experiments.
-3. [HingeZero.py](https://github.com/HingeZero/HingeZero.py) — Python memory-bank implementation.
-4. [HingeZero-1Bit](https://github.com/HingeZero/HingeZero-1Bit) — packed 1-bit memory and demo.
-5. [HingeZero-1B-Memory](https://github.com/HingeZero/HingeZero-1B-Memory) — Witness, research benchmarks and offline desktop app.
-6. [big-ann-benchmarks](https://github.com/HingeZero/big-ann-benchmarks) — forked benchmark framework.
-7. [vibe](https://github.com/HingeZero/vibe) — forked vector-index benchmark framework.
-8. [precisionMemBench](https://github.com/HingeZero/precisionMemBench) — forked memory benchmark framework.
+## Research collaboration and contact
 
-**Visibility:** This is a directory of **public** HingeZero repositories. Private work is intentionally not disclosed or linked here.
+**I welcome attempts to reproduce, test, challenge, improve or integrate HingeZero.** Please link to the exact benchmark and report both the measured gains and the controls.
 
-## 6. Licensing, attribution and contact
+- [GitHub projects and source](https://github.com/HingeZero)
+- [Full project contents and evidence index](https://github.com/HingeZero/HingeZero-)
+- [David Duffy on LinkedIn](https://www.linkedin.com/in/david-duffy-b3a586282)
+- [Desktop commercial licensing](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/desktop/COMMERCIAL-LICENSING.md)
 
-HingeZero research and software: **David Duffy / HingeZero**. Each repository or component has its own licence or usage terms. In particular, the [offline desktop application has separate noncommercial/commercial terms](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/desktop/COMMERCIAL-LICENSING.md); do not assume that the licence of HingeZero Core applies to every project.
-
-For technical questions or collaboration, consult the relevant repository's README, issues and contribution guidance.
-
-*Directory prepared 3 November 2026. Links and repository visibility were checked when the contents page was created.*
+*HingeZero research and implementations by David Duffy, HingeZero Ltd. Published findings refer to the linked test conditions; independent confirmation and broader comparisons are encouraged.*
