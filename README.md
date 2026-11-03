@@ -10,6 +10,12 @@ I'm **David Duffy**, creator of **HingeZero**, an associative-memory research an
 
 ---
 
+## Latest: Witness evidence gate — 0 to 8 steps (3 Nov 2026)
+
+[**Reproducible 0–8-step decision-gate test, synthetic results and limitations**](https://github.com/HingeZero/HingeZero-1B-Memory/tree/main/benchmarks/witness-gated-8step-2026-11-03) — implements zero-step acceptance when the supplied evidence passes, bounded HingeZero refinement for uncertain matches, and explicit `HUMAN_REVIEW` with no selected answer when gates fail. In the 64-pattern synthetic benchmark, 20% corrupted cues were accepted after 1–2 steps; 30% and 40% corrupted cues were held. **This is an evidence-policy demonstration, not a truth detector or general Hopfield breakthrough claim.**
+
+---
+
 ## David Duffy's HingeZero research: Hopfield and Modern Hopfield constraints
 
 HingeZero investigates practical limitations associated with classical Hopfield networks and Modern Hopfield (MH) memory, including storage architecture, computational overhead, noisy-pattern recall, and the distinction between a **stored memory** and a **newly blended state**.
