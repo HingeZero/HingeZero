@@ -1,5 +1,11 @@
 # David Duffy | HingeZero — Associative Memory Research
 
+> **Looking for a downloadable offline AI memory app?**
+> Start with **[HingeZero Memory](https://github.com/HingeZero/HingeZero-1B-Memory)** — a private, encrypted local memory vault with associative retrieval, stored-state Witness verification, and optional local-AI integration.
+> **[Download desktop preview](https://github.com/HingeZero/HingeZero-1B-Memory/releases/latest)** · [Getting started](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/desktop/README.md) · [Developer API](https://github.com/HingeZero/HingeZero-1B-Memory/blob/main/desktop/README.md#local-api-for-existing-ai-tools)
+>
+> The **[HingeZero Core](https://github.com/HingeZero/HingeZero-Core)** is the mathematical reference implementation; the Memory desktop preview is a separate application. Witness checks stored identity, not objective truth.
+
 **New developer integration:** [HingeZero local memory + Ollama assistant quickstart](https://github.com/HingeZero/HingeZero-1B-Memory/tree/main/desktop/local-ollama-demo) — read-only search, user-confirmed saving, local-model answers with references to retrieved notes, and reproducible mock-service tests. Developer preview, not a production-certified release.
 
 **Founder & CTO, HingeZero Ltd · Scotland, UK**
